@@ -1,14 +1,32 @@
 <template>
-  <nav>
+  <NavbarComponent/>
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </nav>
+  </nav> -->
   <router-view/>
+  <FooterComponent/>
 </template>
 
+<script>
+import NavbarComponent from './components/Navbar.vue';
+import FooterComponent from './components/Footer.vue';
+
+export default {
+  components: { NavbarComponent, FooterComponent }
+}
+
+</script>
+
 <style>
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: sans-serif, Arial, Helvetica;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
