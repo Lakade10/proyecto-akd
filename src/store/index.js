@@ -1,14 +1,10 @@
 import { createStore } from 'vuex'
+import web from './web'
 
-export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+const store = createStore({
   modules: {
+    web
   }
 })
+
+export default store

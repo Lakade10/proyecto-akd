@@ -2,13 +2,9 @@
     <div class="noticias">
         <NoticiasListaComponent/>
     </div>
-
-    <RouterView>
-
-    </RouterView>
 </template>
 
-<script >
+<script>
 import NoticiasListaComponent from '@/components/NoticiasLista.vue'
 
 export default {
@@ -18,6 +14,8 @@ export default {
 
 </script>
 
-<style>
-
+<style scoped>
+    .noticias {
+        padding: 20px;
+    }
 </style>

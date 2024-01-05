@@ -2,45 +2,45 @@
     <div class="noticias-list">
       <div v-for="(noticia, index) in noticias" :key="index" class="noticia-panel">
         <!-- Enlace que lleva a la página de noticia completa -->
-        <router-link :to="{ name: entry, params: { id:index }}">
+        <router-link :to="'/noticias/' + index">
           <img :src="noticia.image" :alt="noticia.title">
           <h3>{{ noticia.title }}</h3>
         </router-link>
       </div>
-    </div>
-  </template>
+  </div>
+</template>
   
-  <script setup>
-  import { ref } from 'vue';
+<script setup>
+import { ref } from 'vue';
   
-  const noticias = ref([
-    {
-        title: 'NO SE DIÓ EN CASA...',
-        content: 'La academia cae 1 a 0 frente a Boca, pese al juego colectivo y posesión dominante',
-        image: require('@/assets/imagenesNoticias/boca1racing0.jpeg'),
-        link: '/noticias/0'
-    },
-    { 
-        title: 'ROGER, OTRA VEZ',
-        content: 'Golazo agónico del colombiano otra vez para quedarnos con el 4to puesto de la tabla frente a Huracán',
-        image: require('@/assets/imagenesNoticias/racingHuracan.jpg'),
-        link: '/noticias/1'
-    },
-    { 
-        title: 'VICTORIA EN ALBERDI',
-        content: 'Un golazo firmado por Roger para imponer a la acadé de visitante frente a Belgrano',
-        image: require('@/assets/imagenesNoticias/belgranoRacing.jpg'),
-        link: '/noticias/2'
-    },
-    { 
-        title: 'LA NOCHE DEL DEMONIO',
-        content: 'Doblete y asistencia de Hauche para cerrar la noche de local contra Gimnasia (LP)',
-        image: require('@/assets/imagenesNoticias/hauche.jpeg'),
-        link: '/noticias/3'
-    }
-  ])
+const noticias = ref([
+  {
+      title: 'NO SE DIÓ EN CASA...',
+      content: 'La academia cae 1 a 0 frente a Boca, pese al juego colectivo y posesión dominante',
+      image: require('@/assets/imagenesNoticias/boca1racing0.jpeg'),
+      link: '/noticias/0'
+  },
+  { 
+      title: 'ROGER, OTRA VEZ',
+      content: 'Golazo agónico del colombiano otra vez para quedarnos con el 4to puesto de la tabla frente a Huracán',
+      image: require('@/assets/imagenesNoticias/racingHuracan.jpg'),
+      link: '/noticias/1'
+  },
+  { 
+      title: 'VICTORIA EN ALBERDI',
+      content: 'Un golazo firmado por Roger para imponer a la acadé de visitante frente a Belgrano',
+      image: require('@/assets/imagenesNoticias/belgranoRacing.jpg'),
+      link: '/noticias/2'
+  },
+  { 
+      title: 'LA NOCHE DEL DEMONIO',
+      content: 'Doblete y asistencia de Hauche para cerrar la noche de local contra Gimnasia (LP)',
+      image: require('@/assets/imagenesNoticias/hauche.jpeg'),
+      link: '/noticias/3'
+  }
+])
 
-  </script>
+</script>
   
   <style scoped>
   /* Estilos para el contenedor de noticias */

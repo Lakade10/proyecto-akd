@@ -1,14 +1,11 @@
 <template>
     <div class="shop">
-        Shop
+        <MenuCategoriasComponent/>
     </div>
 </template>
 
-<script>
-
-export default {
-    
-}
+<script setup>
+import MenuCategoriasComponent from '@/components/MenuCategorias.vue'
 
 </script>
 

@@ -62,7 +62,6 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
     width: 100vw;
 }
 
