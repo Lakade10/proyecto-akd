@@ -3,5 +3,7 @@ export default () => ({
     productosCasuales: null,
     productosAccesorios: null,
     productosHogar: null,
-    productosDestacados: null
+    productosDestacados: null,
+    
+    productosSeleccionados: null
 })
