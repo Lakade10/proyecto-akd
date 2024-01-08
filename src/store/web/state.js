@@ -5,5 +5,7 @@ export default () => ({
     productosHogar: null,
     productosDestacados: null,
     
-    productosSeleccionados: null
+    productosSeleccionados: null,
+
+    carrito: [],
 })

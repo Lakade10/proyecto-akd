@@ -22,3 +22,7 @@ export const setProductosDestacados = ( state, productos ) => {
     state.productosDestacados = productos
     state.productosSeleccionados = state.productosDestacados
 }
+
+export const addProductosAlCarrito = ( state, producto ) => {
+    state.carrito.push(producto)
+}

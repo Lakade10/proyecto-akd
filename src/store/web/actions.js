@@ -8,3 +8,11 @@ export const loadProductos = async ({ commit }, { categoria, mutation }) => {
         console.error('Error al cargar productos: ', error)
     }
 }
+
+export const agregarAlCarrito = async ({ commit }, data ) => {
+    try {
+        commit('addProductosAlCarrito', data)
+    } catch (error) {
+        console.error('Error al añadi producto al carrito: ', error)
+    }
+}

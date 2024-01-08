@@ -3,12 +3,16 @@
         <div>
             <Menubar :model="items" @item-click="cambiarCategoria"></Menubar>
         </div>
+        <div>
+          <CarritoItemsComponent/>
+        </div>
         <CatalogoItemsComponent/>
     </div>
 </template>
 
 <script setup>
 import CatalogoItemsComponent from '@/components/CatalogoItems.vue'
+import CarritoItemsComponent from '@/components/CarritoItems.vue'
 import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex';
 import Menubar from 'primevue/menubar';
@@ -29,11 +33,11 @@ const cambiarCategoria = (categoria, mutation) => {
 };
 
 onMounted(() => {
-    
+    cambiarCategoria('destacados', 'setProductosDestacados')
 })
 
 </script>
 
-<style>
+<style scoped>
 
 </style>
