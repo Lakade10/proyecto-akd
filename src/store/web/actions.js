@@ -24,3 +24,11 @@ export const quitarDelCarrito = async ({ commit }, data ) => {
         console.error('Error al remover producto del carrito: ', error)
     }
 }
+
+export const removerTodoDelCarrito = async ({ commit }) => {
+    try {
+        commit('removerTodoDelCarrito')
+    } catch (error) {
+        console.error('Error al remover todo el carrito: ', error)
+    }
+}

@@ -73,3 +73,7 @@ export const removeProductosDelCarrito = ( state, producto ) => {
     }
 
 }
+
+export const removerTodoDelCarrito = ( state ) => {
+    state.carrito = []
+}

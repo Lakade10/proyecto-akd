@@ -6,7 +6,9 @@
         <div>
           <CarritoItemsComponent/>
         </div>
-        <CatalogoItemsComponent/>
+        <div>
+          <CatalogoItemsComponent/>
+        </div>
     </div>
 </template>
 

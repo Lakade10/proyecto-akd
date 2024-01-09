@@ -19,6 +19,10 @@
       <div class="carrito-total">
         <p>Total: ${{ calcularTotalCarrito() }}</p>
       </div>
+      <div class="carrito-botones" v-if="!carritoVacio">
+        <button @click="removerTodo" class="boton-remover-todo">Remover Todo</button>
+        <button @click="alertaCompra" class="boton-finalizar-compra">Finalizar Compra</button>
+      </div>
     </div>
     <div @click="toggleCarrito" class="carrito-icon">
       <span>{{ carrito.length }}</span>
@@ -37,6 +41,8 @@
   const mostrarCarrito = ref(false);
   
   const carrito = computed(() => store.state.web.carrito);
+
+  const carritoVacio = computed(() => carrito.value.length === 0)
   
   const toggleCarrito = () => {
     mostrarCarrito.value = !mostrarCarrito.value;
@@ -57,6 +63,14 @@
 
   const quitarDelCarrito = (producto) => {
     store.dispatch('web/quitarDelCarrito', producto)
+  }
+
+  const removerTodo = () => {
+    store.dispatch('web/removerTodoDelCarrito')
+  }
+
+  const alertaCompra = () => {
+    alert('Gracias por tu compra! hasta acá llega el shop :P')
   }
 
   </script>
@@ -165,7 +179,37 @@
   .boton-añadir-mini:active, .boton-quitar-mini:active {
     filter: brightness(80%);
   }
-  
+
+  /* Estilos botones remover y finalizar */
+
+  .carrito-botones {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .boton-remover-todo {
+    background-color: rgb(177, 76, 76);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+  }
+
+  .boton-finalizar-compra {
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+  }
+
+  .boton-finalizar-compra:active, .boton-remover-todo:active {
+    filter: brightness(80%);
+  }
+
   </style>
-  
-  
