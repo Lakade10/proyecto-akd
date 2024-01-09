@@ -28,7 +28,7 @@ const items = ref([
 const store = useStore()
 
 const cambiarCategoria = (categoria, mutation) => {
-  console.log(`cambiarCategoria: ${categoria}, ${mutation}`);
+  // console.log(`cambiarCategoria: ${categoria}, ${mutation}`);
   store.dispatch('web/loadProductos', { categoria, mutation });
 };
 

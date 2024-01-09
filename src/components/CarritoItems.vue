@@ -9,7 +9,10 @@
           <img :src="producto.imagen" :alt="producto.nombre">
           <div>
             <h3>{{ producto.nombre }}</h3>
-            <p>Precio: ${{ producto.precio }}</p>
+            <p>Precio: ${{ producto.precio }} - Cantidad: {{ producto.cantidad }}</p>
+            <!-- se usa la misma funcion de CatalogoItems, ya que al tomar un producto ya añadido, el botón solo suma la cantidad -->
+            <button @click="agregarAlCarrito(producto)" class="boton-añadir-mini"><i class="pi pi-plus"></i></button>
+            <button @click="quitarDelCarrito(producto)" class="boton-quitar-mini"><i class="pi pi-times"></i></button>
           </div>
         </div>
       </div>
@@ -45,8 +48,17 @@
   
   const calcularTotalCarrito = () => {
     // Puedes ajustar esta función según la estructura de tu producto y tus necesidades
-    return carrito.value.reduce((total, producto) => total + producto.precio, 0);
+    return carrito.value.reduce((total, producto) => total + producto.totalPrecio, 0);
   };
+
+  const agregarAlCarrito = (producto) => {
+    store.dispatch('web/agregarAlCarrito', producto )
+  }
+
+  const quitarDelCarrito = (producto) => {
+    store.dispatch('web/quitarDelCarrito', producto)
+  }
+
   </script>
   
   <style scoped>
@@ -83,7 +95,6 @@
   .carrito-item {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
     border-bottom: 1px solid black;
     padding: 10px;
   }
@@ -121,6 +132,38 @@
     justify-content: center;
     font-size: 16px;
     cursor: pointer;
+  }
+
+  /* Estilos botones de añadir y quitar */
+
+  .boton-añadir-mini {
+    background-color: rgb(68, 147, 70);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    margin-right: 10px;
+    margin: 5px 5px 0 0;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+  }
+
+  .boton-quitar-mini {
+    background-color: rgb(177, 76, 76);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    margin: 5px 0 0 5px;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  .boton-añadir-mini:active, .boton-quitar-mini:active {
+    filter: brightness(80%);
   }
   
   </style>

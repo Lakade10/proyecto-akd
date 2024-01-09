@@ -13,6 +13,14 @@ export const agregarAlCarrito = async ({ commit }, data ) => {
     try {
         commit('addProductosAlCarrito', data)
     } catch (error) {
-        console.error('Error al añadi producto al carrito: ', error)
+        console.error('Error al añadir producto al carrito: ', error)
+    }
+}
+
+export const quitarDelCarrito = async ({ commit }, data ) => {
+    try {
+        commit('removeProductosDelCarrito', data)
+    } catch (error) {
+        console.error('Error al remover producto del carrito: ', error)
     }
 }

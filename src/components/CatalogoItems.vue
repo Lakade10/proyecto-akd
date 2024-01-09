@@ -48,6 +48,11 @@ const agregarAlCarrito = (producto) => {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color linear 0.2s;
+}
+
+.catalogo div:hover {
+  background-color: rgb(217, 242, 251);
 }
 
 .boton-añadir {
@@ -59,7 +64,7 @@ const agregarAlCarrito = (producto) => {
   border-radius: 5px;
   margin-top: 10px;
   cursor: pointer;
-  border: 1px solid black;
+  border: none;
 }
 
 .boton-añadir:active {
