@@ -41,12 +41,16 @@ export const addProductosAlCarrito = ( state, producto ) => {
     // console.log(index)
 
     if (index !== -1) {
-        // Si el producto ya está en el carrito, incrementa la cantidad
-        state.carrito[index].cantidad = (state.carrito[index].cantidad || 0) + 1;
-        state.carrito[index].totalPrecio += producto.precio;
-    } else {
+        if (state.carrito[index].cantidad < producto.stock){
+            // Si el producto ya está en el carrito, incrementa la cantidad
+            state.carrito[index].cantidad = (state.carrito[index].cantidad || 0) + 1;
+            state.carrito[index].totalPrecio += producto.precio;
+        }
+    } else if (producto.stock !== 0) {
         // Si el producto no está en el carrito, agrégalo con cantidad 1
         state.carrito.push({ ...producto, cantidad: 1, totalPrecio: producto.precio });
+    } else {
+        alert('Fuera de stock')
     }
 }
 

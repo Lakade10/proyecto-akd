@@ -1,7 +1,7 @@
 <template>
     <div class="shop">
         <div>
-            <Menubar :model="items" @item-click="cambiarCategoria"></Menubar>
+          <Menubar :model="items" @item-click="cambiarCategoria"></Menubar>
         </div>
         <div>
           <CarritoItemsComponent/>

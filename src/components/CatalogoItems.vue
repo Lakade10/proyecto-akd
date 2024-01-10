@@ -4,7 +4,8 @@
             <img :src="item.imagen" :alt="item.nombre">
             <h3>{{ item.nombre }}</h3>
             <p><b>${{ item.precio }}</b> - Stock disponible: <b>{{ item.stock }}</b></p>
-            <button @click="agregarAlCarrito(item)" class="boton-añadir"><i class="pi pi-cart-plus"></i> Añadir</button>
+            <button v-if="item.stock > 0" @click="agregarAlCarrito(item)" class="boton-añadir"><i class="pi pi-cart-plus"></i> Añadir</button>
+            <h3 v-else class="header-fuera-de-stock">FUERA DE STOCK</h3>
         </div>
     </div>
 </template>
@@ -73,6 +74,11 @@ const agregarAlCarrito = (producto) => {
 
 h3 {
   line-height: 1.6;
+}
+
+.header-fuera-de-stock {
+  margin-top: 10px;
+  text-decoration: underline;
 }
 
 p b {

@@ -1,4 +1,5 @@
 <template>
+  <Transition name="slide-fade">
     <div v-if="mostrarCarrito" class="carrito">
       <div class="carrito-header">
         <span @click="cerrarCarrito">X</span>
@@ -9,7 +10,7 @@
           <img :src="producto.imagen" :alt="producto.nombre">
           <div>
             <h3>{{ producto.nombre }}</h3>
-            <p>Precio: ${{ producto.precio }} - Cantidad: {{ producto.cantidad }}</p>
+            <p>Precio: ${{ producto.precio }} - Cantidad: {{ producto.cantidad === producto.stock? producto.cantidad + ' (máxima)': producto.cantidad }}</p>
             <!-- se usa la misma funcion de CatalogoItems, ya que al tomar un producto ya añadido, el botón solo suma la cantidad -->
             <button @click="agregarAlCarrito(producto)" class="boton-añadir-mini"><i class="pi pi-plus"></i></button>
             <button @click="quitarDelCarrito(producto)" class="boton-quitar-mini"><i class="pi pi-times"></i></button>
@@ -24,13 +25,14 @@
         <button @click="alertaCompra" class="boton-finalizar-compra">Finalizar Compra</button>
       </div>
     </div>
-    <div @click="toggleCarrito" class="carrito-icon">
-      <span>{{ carrito.length }}</span>
-      <!-- Icono del carrito -->
-      <i class="pi pi-shopping-cart"></i>
-      <!-- Agrega aquí el icono que desees para representar el carrito -->
-    </div>
-  </template>
+  </Transition>
+  <div @click="toggleCarrito" class="carrito-icon">
+    <span>{{ carrito.length }}</span>
+    <!-- Icono del carrito -->
+    <i class="pi pi-shopping-cart"></i>
+    <!-- Agrega aquí el icono que desees para representar el carrito -->
+  </div>
+</template>
   
   <script setup>
   import { ref, computed } from 'vue';
@@ -71,7 +73,7 @@
 
   const alertaCompra = () => {
     alert('Gracias por tu compra! hasta acá llega el shop :P')
-  }
+  } 
 
   </script>
   
@@ -210,6 +212,22 @@
 
   .boton-finalizar-compra:active, .boton-remover-todo:active {
     filter: brightness(80%);
+  }
+
+  /* Estilos transición de carrito */
+
+  .slide-fade-enter-active {
+    transition: all 0.3s ease-out;
+  }
+
+  .slide-fade-leave-active {
+    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  }
+
+  .slide-fade-enter-from,
+  .slide-fade-leave-to {
+    transform: translateX(300px);
+    opacity: 0;
   }
 
   </style>
