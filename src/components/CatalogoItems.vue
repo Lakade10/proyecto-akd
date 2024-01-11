@@ -1,11 +1,15 @@
 <template>
     <div class="catalogo">
-        <div v-for="item in catalogoItems" :key="item.id">
+        <div v-for="item in catalogoItems" :key="item.id" class="catalogo-item">
             <img :src="item.imagen" :alt="item.nombre">
             <h3>{{ item.nombre }}</h3>
             <p><b>${{ item.precio }}</b> - Stock disponible: <b>{{ item.stock }}</b></p>
-            <button v-if="item.stock > 0" @click="agregarAlCarrito(item)" class="boton-añadir"><i class="pi pi-cart-plus"></i> Añadir</button>
+            <button v-if="item.stock > 0" @click="agregarAlCarrito(item)" class="boton-añadir">
+            <i class="pi pi-cart-plus"></i> Añadir</button>
             <h3 v-else class="header-fuera-de-stock">FUERA DE STOCK</h3>
+            <div v-if="item.mensajeAñadido" class="mini-modal">
+              Añadido al carrito!
+            </div>
         </div>
     </div>
 </template>
@@ -23,7 +27,12 @@ const catalogoItems = computed(() => {
 
 const agregarAlCarrito = (producto) => {
   store.dispatch('web/agregarAlCarrito', producto )
+  producto.mensajeAñadido = true
+  setTimeout(() => {
+    producto.mensajeAñadido = false
+  }, 1000);
 }
+
 
 </script>
 
@@ -44,7 +53,8 @@ const agregarAlCarrito = (producto) => {
   border-radius: 10px;
 }
 
-.catalogo div {
+.catalogo .catalogo-item {
+  position: relative;
   background-color: #f0f0f0;
   padding: 20px;
   border-radius: 10px;
@@ -83,6 +93,18 @@ h3 {
 
 p b {
   font-size: 1.2rem;
+}
+
+.mini-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 </style>
