@@ -7,9 +7,11 @@
             <button v-if="item.stock > 0" @click="agregarAlCarrito(item)" class="boton-añadir">
             <i class="pi pi-cart-plus"></i> Añadir</button>
             <h3 v-else class="header-fuera-de-stock">FUERA DE STOCK</h3>
-            <div v-if="item.mensajeAñadido" class="mini-modal">
-              Añadido al carrito!
-            </div>
+            <Transition name="fade">
+              <div v-if="item.mensajeAñadido" class="mini-modal">
+                Añadido al carrito! Podés modificar la cantidad en el mismo
+              </div>
+            </Transition>
         </div>
     </div>
 </template>
@@ -30,7 +32,7 @@ const agregarAlCarrito = (producto) => {
   producto.mensajeAñadido = true
   setTimeout(() => {
     producto.mensajeAñadido = false
-  }, 1000);
+  }, 2000);
 }
 
 
@@ -97,7 +99,7 @@ p b {
 
 .mini-modal {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
@@ -105,6 +107,21 @@ p b {
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+}
+
+/* Estilos transición mini-modal */
+
+.fade-enter-active {
+  transition: all 0.2s ease-in;
+}
+
+.fade-leave-active {
+  transition: all 0.2s ease-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 </style>

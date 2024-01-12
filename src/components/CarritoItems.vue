@@ -13,7 +13,7 @@
             <p>Precio: ${{ producto.precio }} - Cantidad: {{ producto.cantidad === producto.stock? producto.cantidad + ' (máxima)': producto.cantidad }}</p>
             <!-- se usa la misma funcion de CatalogoItems, ya que al tomar un producto ya añadido, el botón solo suma la cantidad -->
             <button @click="agregarAlCarrito(producto)" class="boton-añadir-mini"><i class="pi pi-plus"></i></button>
-            <button @click="quitarDelCarrito(producto)" class="boton-quitar-mini"><i class="pi pi-times"></i></button>
+            <button @click="quitarDelCarrito(producto)" class="boton-quitar-mini"><i class="pi pi-minus"></i></button>
           </div>
         </div>
       </div>
