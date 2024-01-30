@@ -2,35 +2,53 @@
   <div v-if="mostrarFormulario" class="overlay"></div>
   <div v-if="mostrarFormulario" class="formulario-compra">
     <h2>Formulario de Compra</h2>
-    <form @submit.prevent="enviarFormulario">
+    <form @submit.prevent="enviarFormulario" novalidate="true">
       <div class="campo">
         <label for="nombre">Nombre Completo:</label>
-        <input type="text" id="nombre" v-model="nombre" required />
+        <input type="text" id="nombre" v-model="nombreCompleto" />
       </div>
 
       <div class="campo">
         <label for="email">Correo Electrónico:</label>
-        <input type="email" id="email" v-model="email" required />
+        <input type="email" id="email" v-model="email" />
+      </div>
+
+      <div class="campo">
+        <label for="ciudad">Ciudad:</label>
+        <select id="ciudad" v-model="ciudadSeleccionada">
+          <option v-for="ciudad in ciudades" :key="ciudad">{{ ciudad }}</option>
+        </select>      
       </div>
 
       <div class="campo">
         <label for="direccion">Dirección de Envío:</label>
-        <textarea id="direccion" v-model="direccion" required></textarea>
+        <input type="text" id="direccion" v-model="direccion" />
       </div>
 
       <div class="campo">
         <label for="tarjeta">Número de Tarjeta:</label>
-        <input type="text" id="tarjeta" v-model="numeroTarjeta" required />
+        <input type="text" id="tarjeta" v-model="numeroTarjeta" />
       </div>
 
-      <div class="campo">
-        <label for="fecha-expiracion">Fecha de Expiración:</label>
-        <input type="text" id="fecha-expiracion" v-model="fechaExpiracion" required />
+      <div class="agrupador-campos">
+        <div class="campo">
+          <label for="fecha-expiracion">Fecha de Expiración:</label>
+          <input type="text" id="fecha-expiracion" v-model="fechaExpiracion" />
+        </div>
+  
+        <div class="campo">
+          <label for="cvv">CVV:</label>
+          <input type="text" id="cvv" v-model="cvv" />
+        </div>
       </div>
 
-      <div class="campo">
-        <label for="cvv">CVV:</label>
-        <input type="text" id="cvv" v-model="cvv" required />
+      <div class="lista-carrito">
+        <h3>Estas comprando:</h3>
+        <p v-if="carrito.length === 0">No hay items en el carrito.</p>
+        <div v-else class="lista">
+          <span v-for="(item, index) in carrito" :key="index">{{ item.nombre }} ({{ item.cantidad }}u.), </span>
+          <b>Total: ${{ calcularTotalCarrito() }}</b> 
+        </div>
       </div>
 
       <button type="submit" class="boton-finalizar">Finalizar Compra</button>
@@ -44,25 +62,35 @@ import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
-// Desarrollar la action en CarritoItems.vue para settear en true la prop, mismo en false acá
 const mostrarFormulario = computed(() => store.state.web.showForm);
 
-const nombre = ref('');
+const carrito = computed(() => store.state.web.carrito);
+
+const nombreCompleto = ref('');
 const email = ref('');
+// const ciudadSeleccionada = ref();
 const direccion = ref('');
 const numeroTarjeta = ref('');
 const fechaExpiracion = ref('');
 const cvv = ref('');
+// const errores = ref({})
+
+const ciudades = ['Buenos Aires', 'CABA', 'Córdoba', 'Santa Fé', 'Neuquén']; // Puedes cambiar este array según tus necesidades
+
+const calcularTotalCarrito = () => {
+  return carrito.value.reduce((total, producto) => total + producto.totalPrecio, 0);
+};
 
 const enviarFormulario = () => {
   // Lógica para enviar el formulario (puede variar según tu backend)
   // Puedes acceder a los productos en el carrito con store.state.web.carrito
+  // validarFormulario();
   alert('Formulario enviado');
   reiniciarFormulario();
 };
 
 const reiniciarFormulario = () => {
-  nombre.value = '';
+  nombreCompleto.value = '';
   email.value = '';
   direccion.value = '';
   numeroTarjeta.value = '';
@@ -76,6 +104,42 @@ const cerrarFormulario = () => {
   store.dispatch('web/deshabilitarFormulario')
 };
 
+// const validarFormulario = () => {
+
+
+// const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+
+// errores.value.pais = paisSeleccionado.value ? null : 'Campo Obligatorio';
+// if(provinciasDisabled.value === false){
+//   errores.value.provincia = provinciaSeleccionada.value.id  ? null : 'Campo Obligatorio';
+// }else {
+//     errores.value.provincia = null
+// }
+
+// if(localidadesDisabled.value === false){
+//   errores.value.localidad = localidadSeleccionada.value.id  ? null : 'Campo Obligatorio';
+// }else {
+//     errores.value.localidad = null
+// }
+// errores.value.cp = cp.value.length < 4 || cp.value.length > 10 ? null : 'Ingrese un CP Valido';
+// errores.value.cp = cp.value ? null : 'Campo Obligatorio';
+// if(errores.value.cp === null){
+//   errores.value.cp = cp.value.length >= 4 ? null : 'Ingrese un Codigo Valido';
+// }
+// errores.value.telefono = telefono.value ? null : 'Campo Obligatorio';
+// if(errores.value.telefono === null){
+//   errores.value.telefono = telefono.value.length >= 8 ? null : 'Ingrese un Telefono Valido';
+// }
+// errores.value.direccion = direccion.value && direccion.value.length > 4 ? null : 'Campo Obligatorio';
+// errores.value.email = email.value? null : 'Campo Obligatorio';
+// if(errores.value.email === null){
+//   errores.value.email = emailRegex.test(email.value) ? null : 'Ingrese un Email Valido';
+// }
+
+// return Object.values(errores.value).every((error) => !error);
+// };
+
 </script>
 
 <style scoped>
@@ -88,10 +152,19 @@ const cerrarFormulario = () => {
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1002;
+  max-width: 414px;
+}
+
+h2 {
+  margin-bottom: 5px;
 }
 
 .campo {
   margin-bottom: 15px;
+}
+
+.agrupador-campos {
+  display: flex;
 }
 
 label {
@@ -100,11 +173,15 @@ label {
 }
 
 input,
-textarea {
-  width: 100%;
+select {
+  width: 80%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.lista {
+  margin: 5px 0;
 }
 
 .boton-finalizar {

@@ -85,7 +85,7 @@
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    z-index: 1000;
+    z-index: 1001;
     overflow-y: auto;
   }
   
@@ -145,6 +145,7 @@
     justify-content: center;
     font-size: 16px;
     cursor: pointer;
+    z-index: 1000;
   }
 
   /* Estilos botones de añadir y quitar */
