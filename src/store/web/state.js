@@ -8,4 +8,6 @@ export default () => ({
     productosSeleccionados: null,
 
     carrito: [],
+
+    showForm: false,
 })

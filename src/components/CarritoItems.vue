@@ -22,15 +22,13 @@
       </div>
       <div class="carrito-botones" v-if="!carritoVacio">
         <button @click="removerTodo" class="boton-remover-todo">Remover Todo</button>
-        <button @click="alertaCompra" class="boton-finalizar-compra">Finalizar Compra</button>
+        <button @click="habilitarFormulario" class="boton-finalizar-compra">Finalizar Compra</button>
       </div>
     </div>
   </Transition>
   <div @click="toggleCarrito" class="carrito-icon">
     <span>{{ carrito.length }}</span>
-    <!-- Icono del carrito -->
     <i class="pi pi-shopping-cart"></i>
-    <!-- Agrega aquí el icono que desees para representar el carrito -->
   </div>
 </template>
   
@@ -55,7 +53,6 @@
   };
   
   const calcularTotalCarrito = () => {
-    // Puedes ajustar esta función según la estructura de tu producto y tus necesidades
     return carrito.value.reduce((total, producto) => total + producto.totalPrecio, 0);
   };
 
@@ -71,8 +68,8 @@
     store.dispatch('web/removerTodoDelCarrito')
   }
 
-  const alertaCompra = () => {
-    alert('Gracias por tu compra! hasta acá llega el shop :P')
+  const habilitarFormulario = () => {
+    store.dispatch('web/habilitarFormulario')
   } 
 
   </script>

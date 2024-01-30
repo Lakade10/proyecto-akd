@@ -81,3 +81,11 @@ export const removeProductosDelCarrito = ( state, producto ) => {
 export const removerTodoDelCarrito = ( state ) => {
     state.carrito = []
 }
+
+export const habilitarFormulario = ( state ) => {
+    state.showForm = true
+}
+
+export const deshabilitarFormulario = ( state ) => {
+    state.showForm = false
+}

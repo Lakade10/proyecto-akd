@@ -32,3 +32,20 @@ export const removerTodoDelCarrito = async ({ commit }) => {
         console.error('Error al remover todo el carrito: ', error)
     }
 }
+
+/* Existe una funcion del mismo nombre en CarritoItems y en las mutaciones */
+export const habilitarFormulario = async ({ commit }) => {
+    try {
+        commit('habilitarFormulario')
+    } catch (error) {
+        console.error('Error al mostrar el formulario de compra: ', error)
+    }
+}
+
+export const deshabilitarFormulario = async ({ commit }) => {
+    try {
+        commit('deshabilitarFormulario')
+    } catch (error) {
+        console.error('Error al ocultar el formulario de compra: ', error)
+    }
+}
