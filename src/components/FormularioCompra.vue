@@ -20,25 +20,32 @@
         </select>      
       </div>
 
-      <div class="campo">
-        <label for="direccion">Dirección de Envío:</label>
-        <input type="text" id="direccion" v-model="direccion" />
+      <div class="agrupador-campos">
+        <div class="campo">
+          <label for="direccion">Dirección de Envío:</label>
+          <input type="text" id="direccion" v-model="direccion" />
+        </div>
+
+        <div class="campo">
+          <label for="cp">Código Postal:</label>
+          <input type="number" id="cp" v-model="cp" min="1000" max="9999999999" inputmode="numeric" />
+        </div>
       </div>
 
       <div class="campo">
         <label for="tarjeta">Número de Tarjeta:</label>
-        <input type="text" id="tarjeta" v-model="numeroTarjeta" />
+        <input type="text" id="tarjeta" v-model="numeroTarjeta" placeholder="XXXX XXXX XXXX XXXX" />
       </div>
 
       <div class="agrupador-campos">
         <div class="campo">
           <label for="fecha-expiracion">Fecha de Expiración:</label>
-          <input type="text" id="fecha-expiracion" v-model="fechaExpiracion" />
+          <input type="text" id="fecha-expiracion" v-model="fechaExpiracion" placeholder="XX/XX" />
         </div>
   
         <div class="campo">
           <label for="cvv">CVV:</label>
-          <input type="text" id="cvv" v-model="cvv" />
+          <input type="text" id="cvv" v-model="cvv" placeholder="XXX" />
         </div>
       </div>
 
@@ -46,7 +53,7 @@
         <h3>Estas comprando:</h3>
         <p v-if="carrito.length === 0">No hay items en el carrito.</p>
         <div v-else class="lista">
-          <span v-for="(item, index) in carrito" :key="index">{{ item.nombre }} ({{ item.cantidad }}u.), </span>
+          <span v-for="(item, index) in carrito" :key="index">{{ item.nombre }} ({{ item.cantidad }}u), </span>
           <b>Total: ${{ calcularTotalCarrito() }}</b> 
         </div>
       </div>
@@ -66,37 +73,39 @@ const mostrarFormulario = computed(() => store.state.web.showForm);
 
 const carrito = computed(() => store.state.web.carrito);
 
-const nombreCompleto = ref('');
-const email = ref('');
-// const ciudadSeleccionada = ref();
-const direccion = ref('');
-const numeroTarjeta = ref('');
-const fechaExpiracion = ref('');
-const cvv = ref('');
-// const errores = ref({})
+const nombreCompleto = ref();
+const email = ref();
+const ciudadSeleccionada = ref();
+const direccion = ref();
+const cp = ref()
+const numeroTarjeta = ref();
+const fechaExpiracion = ref();
+const cvv = ref();
+const errores = ref({});
 
-const ciudades = ['Buenos Aires', 'CABA', 'Córdoba', 'Santa Fé', 'Neuquén']; // Puedes cambiar este array según tus necesidades
+const ciudades = ['Buenos Aires', 'CABA', 'Córdoba', 'Santa Fé', 'Neuquén'];
 
 const calcularTotalCarrito = () => {
   return carrito.value.reduce((total, producto) => total + producto.totalPrecio, 0);
 };
 
 const enviarFormulario = () => {
-  // Lógica para enviar el formulario (puede variar según tu backend)
-  // Puedes acceder a los productos en el carrito con store.state.web.carrito
-  // validarFormulario();
-  alert('Formulario enviado');
-  reiniciarFormulario();
+  validarFormulario();
+  // alert('Formulario enviado');
+  // reiniciarFormulario();
 };
 
 const reiniciarFormulario = () => {
-  nombreCompleto.value = '';
-  email.value = '';
-  direccion.value = '';
-  numeroTarjeta.value = '';
-  fechaExpiracion.value = '';
-  cvv.value = '';
+  nombreCompleto.value = null;
+  ciudadSeleccionada.value = null;
+  email.value = null;
+  direccion.value = null;
+  numeroTarjeta.value = null;
+  fechaExpiracion.value = null;
+  cp.value = null
+  cvv.value = null;
   store.dispatch('web/deshabilitarFormulario')
+  store.dispatch('web/removerTodoDelCarrito')
 };
 
 const cerrarFormulario = () => {
@@ -104,41 +113,73 @@ const cerrarFormulario = () => {
   store.dispatch('web/deshabilitarFormulario')
 };
 
-// const validarFormulario = () => {
+const validarFormulario = () => {
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  
+  errores.value.nombreCompleto = nombreCompleto.value ? null : 'Campo Nombre Completo Obligatorio';
+  if(errores.value.nombreCompleto === null){
+    const nombreCompletoSinEspacios = nombreCompleto.value.trim();
+    errores.value.nombreCompleto = nombreCompletoSinEspacios.includes(' ') && nombreCompletoSinEspacios.length >= 6 ? null : 'Ingrese un Nombre Completo Válido';
+    nombreCompleto.value = nombreCompletoSinEspacios;
+  }
 
+  errores.value.ciudad = ciudadSeleccionada.value ? null : 'Campo Ciudad Obligatorio';
 
-// errores.value.pais = paisSeleccionado.value ? null : 'Campo Obligatorio';
-// if(provinciasDisabled.value === false){
-//   errores.value.provincia = provinciaSeleccionada.value.id  ? null : 'Campo Obligatorio';
-// }else {
-//     errores.value.provincia = null
-// }
+  errores.value.cp = cp.value ? null : 'Campo CP Obligatorio';
+  if(errores.value.cp === null){
+    errores.value.cp = cp.value >= 1000 && cp.value <= 9999? null : 'Ingrese un CP Valido';
+  }
+  
+  errores.value.direccion = direccion.value ? null : 'Campo Dirección Obligatorio';
+  if(errores.value.direccion === null){
+    errores.value.direccion = direccion.value.length > 4 && direccion.value.length < 100 ? null : 'Ingrese una Dirección Válida';
+  }
+  errores.value.email = email.value? null : 'Campo Email Obligatorio';
+  if(errores.value.email === null){
+    errores.value.email = emailRegex.test(email.value) ? null : 'Ingrese un Email Valido';
+  }
+  
+  errores.value.numeroTarjeta = numeroTarjeta.value ? null : 'Campo Número de Tarjeta Obligatorio';
+  
+  if(errores.value.numeroTarjeta === null){
+    errores.value.numeroTarjeta = numeroTarjeta.value.length === 16 ? null : 'Ingrese un Número de Tarjeta Válido (16 caracteres)';
+    
+    if(errores.value.numeroTarjeta === null){
+      const soloNumeros = /^[0-9]*$/;
+      errores.value.numeroTarjeta = soloNumeros.test(numeroTarjeta.value) ? null : 'Ingrese Solo Números en el Campo Tarjeta';
+      
+      if(errores.value.numeroTarjeta === null){
+        const sinEspacios = numeroTarjeta.value.replace(/\s/g, '');
+        const formatoValido = /^(\d{4}\s?){3}\d{4}$/;
+        errores.value.numeroTarjeta = formatoValido.test(sinEspacios) ? null : 'Ingrese un Número de Tarjeta Válido (espacios)';
+      }
+    }
+  }
+  
+  errores.value.fechaExpiracion = fechaExpiracion.value ? null : 'Campo Fecha de Expiración Obligatorio';
+  if(errores.value.fechaExpiracion === null){
+    const fechaExpiracionRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    errores.value.fechaExpiracion = fechaExpiracionRegex.test(fechaExpiracion.value) ? null : 'Ingrese la Fecha en el Formato Correcto'
+  }
 
-// if(localidadesDisabled.value === false){
-//   errores.value.localidad = localidadSeleccionada.value.id  ? null : 'Campo Obligatorio';
-// }else {
-//     errores.value.localidad = null
-// }
-// errores.value.cp = cp.value.length < 4 || cp.value.length > 10 ? null : 'Ingrese un CP Valido';
-// errores.value.cp = cp.value ? null : 'Campo Obligatorio';
-// if(errores.value.cp === null){
-//   errores.value.cp = cp.value.length >= 4 ? null : 'Ingrese un Codigo Valido';
-// }
-// errores.value.telefono = telefono.value ? null : 'Campo Obligatorio';
-// if(errores.value.telefono === null){
-//   errores.value.telefono = telefono.value.length >= 8 ? null : 'Ingrese un Telefono Valido';
-// }
-// errores.value.direccion = direccion.value && direccion.value.length > 4 ? null : 'Campo Obligatorio';
-// errores.value.email = email.value? null : 'Campo Obligatorio';
-// if(errores.value.email === null){
-//   errores.value.email = emailRegex.test(email.value) ? null : 'Ingrese un Email Valido';
-// }
+  errores.value.cvv = cvv.value ? null : 'Campo CVV Obligatorio';
+  if(errores.value.cvv === null){
+    errores.value.cvv = cvv.value.length === 3 ? null : 'Ingrese un CVV Válido'
+  }
 
-// return Object.values(errores.value).every((error) => !error);
-// };
+  const mensajesErrores = Object.values(errores.value).filter((error) => error !== null);
+
+  if (mensajesErrores.length === 0) {
+    // No hay errores
+    alert('Formulario validado correctamente');
+    reiniciarFormulario();
+  } else {
+    // Hay errores, mostrar mensajes
+    alert(`Hay errores en el formulario:\n${mensajesErrores.join('\n')}`);
+  }
+};
 
 </script>
 
