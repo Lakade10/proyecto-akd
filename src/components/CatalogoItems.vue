@@ -1,17 +1,17 @@
 <template>
     <div class="catalogo">
         <div v-for="item in catalogoItems" :key="item.id" class="catalogo-item">
-            <img :src="item.imagen" :alt="item.nombre">
-            <h3>{{ item.nombre }}</h3>
-            <p><b>${{ item.precio }}</b> - Stock disponible: <b>{{ item.stock }}</b></p>
-            <button v-if="item.stock > 0" @click="agregarAlCarrito(item)" class="boton-añadir">
-            <i class="pi pi-cart-plus"></i> Añadir</button>
-            <h3 v-else class="header-fuera-de-stock">FUERA DE STOCK</h3>
-            <Transition name="fade">
-              <div v-if="item.mensajeAñadido" class="mini-modal">
-                Añadido al carrito! Podés modificar la cantidad en el mismo
-              </div>
-            </Transition>
+          <img :src="item.imagen" :alt="item.nombre">
+          <h3>{{ item.nombre }}</h3>
+          <p><b>${{ item.precio }}</b> - Stock disponible: <b>{{ item.stock }}</b></p>
+          <button v-if="item.stock > 0" @click="agregarAlCarrito(item)" class="boton-añadir">
+          <i class="pi pi-cart-plus"></i> Añadir</button>
+          <h3 v-else class="header-fuera-de-stock">FUERA DE STOCK</h3>
+          <Transition name="fade">
+            <div v-if="item.mensajeAñadido" class="mini-modal">
+              Añadido al carrito! Podés modificar la cantidad en el mismo
+            </div>
+          </Transition>
         </div>
     </div>
 </template>
@@ -124,4 +124,19 @@ p b {
   opacity: 0;
 }
 
+/* Estilos transicion items */
+
+.scale-enter-active {
+  transition: all 1s ease;
+}
+
+.scale-enter-from {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.scale-leave-active {
+  position: absolute;
+  opacity: 0;
+}
 </style>

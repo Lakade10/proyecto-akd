@@ -1,5 +1,7 @@
 import webApi from "@/api/webApi";
 
+/* Productos */
+
 export const loadProductos = async ({ commit }, { categoria, mutation }) => {
     try {
         const { data } = await webApi.get(`/productos/${categoria}.json`)
@@ -47,5 +49,25 @@ export const deshabilitarFormulario = async ({ commit }) => {
         commit('deshabilitarFormulario')
     } catch (error) {
         console.error('Error al ocultar el formulario de compra: ', error)
+    }
+}
+
+/* Noticias */
+
+export const loadNoticias = async({commit}, {categoria, mutation}) => {
+    try {
+        const { data } = await webApi.get(`/noticias/${categoria}.json`)
+        commit(mutation, data)
+    } catch (error) {
+        console.error('Error al cargar noticias: ', error)
+    }
+}
+
+export const loadNoticiaById = async({commit}, {categoria, id, mutation}) => {
+    try {
+        const { data } = await webApi.get(`/noticias/${categoria}/noticiaId${id}.json`)
+        commit(mutation, data)
+    } catch (error) {
+        console.error('Error al cargar noticia: ', error)
     }
 }

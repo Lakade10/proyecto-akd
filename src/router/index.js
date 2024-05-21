@@ -28,12 +28,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "shop" */ '../views/ShopView.vue')
   },
   {
-    path: '/noticias/:id',
+    path: '/noticias/:categoria/:id',
     name: 'entry',
     component: () => import(/* webpackChunkName: "entry" */ '@/views/NoticiaEntryView.vue'),
     props: (route) => {
       return {
-        id: route.params.id
+        id: route.params.id,
+        categoria: route.params.categoria
       }
     } 
   }

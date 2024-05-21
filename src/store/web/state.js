@@ -1,4 +1,5 @@
 export default () => ({
+    /* Productos */
     productosDeportivos: null,
     productosCasuales: null,
     productosAccesorios: null,
@@ -10,4 +11,14 @@ export default () => ({
     carrito: [],
 
     showForm: false,
+
+    /* Noticias */
+    noticiasFutbol: null,
+    noticiasInstitucional: null,
+    noticiasBasquet: null,
+    ultimasNoticias: null,
+
+    noticiasSeleccionadas: null,
+
+    noticiaById: null
 })

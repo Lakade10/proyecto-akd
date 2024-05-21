@@ -1,4 +1,4 @@
-// Mutaciones que traen los productos según categoría elegida
+// Mutaciones que traen los productos según categoria elegida
 
 export const setProductosDeportivos = ( state, productos ) => {
     state.productosDeportivos = productos
@@ -88,4 +88,30 @@ export const habilitarFormulario = ( state ) => {
 
 export const deshabilitarFormulario = ( state ) => {
     state.showForm = false
+}
+
+// Mutaciones que traen noticias según categoria elegida + id
+
+export const setNoticiasFutbol = (state, productos) => {
+    state.noticiasFutbol = productos
+    state.noticiasSeleccionadas = state.noticiasFutbol
+}
+
+export const setNoticiasBasquet = (state, productos) => {
+    state.noticiasBasquet = productos
+    state.noticiasSeleccionadas = state.noticiasBasquet
+}
+
+export const setNoticiasInstitucional = (state, productos) => {
+    state.noticiasInstitucional = productos
+    state.noticiasSeleccionadas = state.noticiasInstitucional
+}
+
+export const setUltimasNoticias = (state, productos) => {
+    state.ultimasNoticias = productos
+    state.noticiasSeleccionadas = state.ultimasNoticias
+}
+
+export const setNoticiaById = (state, noticia) => {
+    state.noticiaById = noticia
 }

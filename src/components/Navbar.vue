@@ -58,11 +58,9 @@ export default {
 <style scoped>
 .navbar {
     background-color: rgba(80, 194, 236, 0.8);
-    height: 15vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100vw;
 }
 
 .logotipo1, #leyenda, #menubar {
