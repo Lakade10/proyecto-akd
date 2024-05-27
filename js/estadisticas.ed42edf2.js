@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkproyecto_akd"]=self["webpackChunkproyecto_akd"]||[]).push([[277],{8705:function(t,e,n){n.r(e),n.d(e,{default:function(){return i}});var r=n(3396);const s={class:"estadisticas"};function c(t,e,n,c,a,u){return(0,r.wg)(),(0,r.iD)("div",s," Est ")}var a={},u=n(89);const o=(0,u.Z)(a,[["render",c]]);var i=o}}]);
+//# sourceMappingURL=estadisticas.ed42edf2.js.map
