@@ -26,12 +26,14 @@ const jugadoresVisibles = computed(() => {
 const incrementarJugador = () => {
   if (index.value + jugadoresPorPagina.value < props.jugadores.length) {
     index.value++;
+    console.log(index.value)
   }
 };
 
 const decrementarJugador = () => {
   if (index.value > 0) {
     index.value--;
+    console.log(index.value)
   }
 };
 
@@ -77,9 +79,11 @@ onUnmounted(() => {
 }
 
 .carousel-track-title {
-  border-bottom: 5px groove rgb(80, 194, 236);
+  border-top: 5px outset rgb(80, 194, 236);
+  border-bottom: 5px outset rgb(80, 194, 236);
   text-align: left;
-  padding-left: 20px;
+  padding: 10px 0 10px 20px;
+  background-color: rgba(80, 194, 236, 0.25);
 }
 
 .carousel-track {

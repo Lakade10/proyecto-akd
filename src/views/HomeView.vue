@@ -218,7 +218,7 @@ const jugadores = ref([
 }
 
 .carousel-productos {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 /* Estilos contenido de CarouselJugadoresComponent */
@@ -238,9 +238,10 @@ const jugadores = ref([
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 20%;
+  min-width: 25%;
   box-sizing: border-box;
   padding: 10px;
+  
 }
 
 .jugador-image-container {

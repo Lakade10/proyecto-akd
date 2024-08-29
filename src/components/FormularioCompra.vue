@@ -67,6 +67,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
+import emailjs from '@emailjs/browser';
 
 const store = useStore();
 const mostrarFormulario = computed(() => store.state.web.showForm);
@@ -174,6 +175,7 @@ const validarFormulario = () => {
   if (mensajesErrores.length === 0) {
     // No hay errores
     alert('Formulario validado correctamente');
+    sendEmail();
     reiniciarFormulario();
   } else {
     // Hay errores, mostrar mensajes
@@ -181,6 +183,38 @@ const validarFormulario = () => {
   }
 };
 
+const sendEmail = () => {
+  const serviceId = 'service_74s0xcg';
+  const templateId = 'template_nml1wkc';
+  const apiKey = 'DXKPSTAsTb8q8PMRB';
+  var mensajeCarrito = `Compraste:\n`;
+
+  for(let i = 0; i < carrito.value.length; i++){
+    const item = carrito.value[i];
+    mensajeCarrito += `- ${item.nombre}: ${item.cantidad} unidades, precio total ${'$' + item.totalPrecio} (${'$' + item.precio + ' precio unitario'})\n`
+  }
+
+  mensajeCarrito += `Total: $${calcularTotalCarrito()}`
+
+  emailjs
+    .send(serviceId, templateId, {
+      to_name: nombreCompleto.value,
+      to_email: email.value,
+      from_name: 'Proyecto AKD',
+      subject: 'Recibo de tu compra [Proyecto AKD]',
+      message: mensajeCarrito,
+    }, {
+      publicKey: apiKey,
+    })
+    .then(
+      () => {
+        console.log('SUCCESS!');
+      },
+      (error) => {
+        console.log('FAILED...', error.text);
+      },
+    );
+};
 </script>
 
 <style scoped>

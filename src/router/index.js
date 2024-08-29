@@ -37,6 +37,16 @@ const routes = [
         categoria: route.params.categoria
       }
     } 
+  },
+  {
+    path: '/estadisticas/jugador/:id',
+    name: 'estadisticaJugador',
+    component: () => import(/* webpackChunkName: "estadisticaJugador" */ '@/views/EstadisticaJugadorView.vue'),
+    props: (route) => {
+      return {
+        id: route.params.id
+      }
+    }
   }
 ]
 
