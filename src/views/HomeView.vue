@@ -1,7 +1,23 @@
 <template>
   <div class="home">
     <div class="main-content">
-      <CarrouselNoticiasComponent v-if="noticias" :noticias="noticias"/>
+      <!-- <CarrouselNoticiasComponent v-if="noticias" :noticias="noticias"/> -->
+      <carousel v-if="noticias" :items-to-show="1" wrapAround="true">
+        <slide v-for="noticia in noticias" :key="noticia.id">
+          <h2 class="slide-h2">{{ capitalize(noticia.categoria) }}</h2>
+          <img :src="noticia.imagen" :alt="noticia.subtitulo" @click="navigateToNoticia(noticia)" class="slide-img">
+          <div class="slide-texto">
+            <h3>{{ noticia.titulo }}</h3>
+            <p>{{ noticia.subtitulo }}</p>
+          </div>
+        </slide>
+
+        <template #addons>
+          <navigation />
+          <pagination />
+        </template> 
+      </carousel>
+
     </div>
     <div class="sidebar">
       <FixtureResumenComponent :partidos="partidos" :partidosPorPagina="2"/>
@@ -11,7 +27,7 @@
     <CarrouselJugadoresComponent :jugadores="jugadores" :titulo="'PLANTEL PROFESIONAL'">
       <template #contenido="slotProps">
         <div v-for="jugador in slotProps.items" :key="jugador.id" class="jugador-card">
-          <a class="jugador-image-container" :href="`#/estadisticas/${jugador.id}`">
+          <a class="jugador-image-container" :href="`#/estadisticas/jugador/${jugador.id}`">
             <img :src="jugador.imagen" :alt="jugador.nombre" class="jugador-image">
             <div class="hover-overlay"><b>Ver Datos</b></div>
           </a>
@@ -39,15 +55,19 @@
 
 <script setup>
 // EL CÓDIGO FUNCIONÓ UNA VEZ ASÍ, PERO COMO LA CARGA ES TEMPRANA PUEDE QUE SEA EL MOTIVO POR EL CUAL LA PROP NOTICIAS NO LLEGA A CARGARSE
-import CarrouselNoticiasComponent from '@/components/CarrouselNoticias.vue';
+// import CarrouselNoticiasComponent from '@/components/CarrouselNoticias.vue';
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import FixtureResumenComponent from '@/components/FixtureResumen.vue';
 import CarrouselJugadoresComponent from '@/components/CarrouselJugadores.vue';
-import { ref, computed, onBeforeMount } from 'vue';
+import { ref, computed, onBeforeMount, capitalize } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import racingClubEscudo from '@/assets/escudos/racingClub.png';
 import escudoGenerico from '@/assets/escudos/escudoGenerico.png';
 
 const store = useStore();
+const router = useRouter();
 
 const cambiarCategoriaNoticias = (categoria, mutation) => {
   store.dispatch('web/loadNoticias', {categoria, mutation})
@@ -71,6 +91,10 @@ const noticias = computed(() => {
 const productos = computed(() => {
   return store.state.web.productosSeleccionados
 });
+
+const navigateToNoticia = (noticia) => {
+  router.push(`/noticias/${noticia.categoria}/${noticia.id}`);
+};
 
 const partidos = ref([
     {
@@ -299,6 +323,32 @@ const jugadores = ref([
 
 .jugador-image-container:hover .hover-overlay, .producto-image-container:hover .hover-overlay {
   opacity: 1;
+}
+
+.slide-img {
+  object-fit: cover;
+  width: 100%;
+  height: 600px;
+  cursor: pointer;
+  border-radius: 0 10px 10px 0;
+}
+
+.slide-h2 {
+  position: absolute;
+  top: 10px;
+  color: #ffffff;
+  text-shadow: 0px 0px 5px black;
+}
+
+.slide-texto {
+  text-align: center;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  position: absolute;
+  bottom: 10px;
 }
 
 @media (max-width: 1120px){
