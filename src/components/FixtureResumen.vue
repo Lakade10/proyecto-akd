@@ -4,23 +4,21 @@
     <button @click="mostrarPartidosAnteriores" class="btn-arrow-fixture">&#8249;</button>
     <button @click="mostrarPartidosSiguientes" class="btn-arrow-fixture">&#8250;</button>
     <div class="contenedor-partidos">
-        <TransitionGroup name="slide">
-            <div v-for="partido in partidosVisibles" :key="partido.id" class="partido">
-                <div class="info-torneo">{{ partido.torneo }}</div>
-                <div class="info-fecha">{{ partido.fecha }}</div>
-                <div class="info-equipos">
-                    <div class="equipo-local">
-                        <img :src="partido.equipoLocal.escudo" alt="Escudo Local" />
-                        <span>{{ partido.equipoLocal.nombre }}</span>
-                    </div>
-                    <div class="resultado">{{ partido.resultado }}</div>
-                    <div class="equipo-visitante">
-                        <span>{{ partido.equipoVisitante.nombre }}</span>
-                        <img :src="partido.equipoVisitante.escudo" alt="Escudo Visitante" />
-                    </div>
+        <div v-for="partido in partidosVisibles" :key="partido.id" class="partido">
+            <div class="info-torneo">{{ partido.torneo }}</div>
+            <div class="info-fecha">{{ partido.fecha }}</div>
+            <div class="info-equipos">
+                <div class="equipo-local">
+                    <img :src="partido.equipoLocal.escudo" alt="Escudo Local" />
+                    <span>{{ partido.equipoLocal.nombre }}</span>
+                </div>
+                <div class="resultado">{{ partido.resultado }}</div>
+                <div class="equipo-visitante">
+                    <span>{{ partido.equipoVisitante.nombre }}</span>
+                    <img :src="partido.equipoVisitante.escudo" alt="Escudo Visitante" />
                 </div>
             </div>
-        </TransitionGroup>
+        </div>
     </div>
 </div>
 </template>
@@ -66,6 +64,11 @@ const mostrarPartidosSiguientes = () => {
     width: max-content;
 }
 
+.fixture-resumen h2 {
+    color: #fff;
+    text-shadow: 0px 0px 5px black;
+}
+
 .btn-arrow-fixture {
     border: none;
     border-radius: 50%;
@@ -89,7 +92,7 @@ const mostrarPartidosSiguientes = () => {
 .partido {
     height: 230px;
     border: 2px solid rgb(0, 41, 66);
-    background-color: rgba(80, 194, 236, 0.25);
+    background-color: #cffcff;
     display: flex;
     flex-direction: column;
     color: rgb(0, 41, 66);

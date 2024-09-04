@@ -42,6 +42,7 @@ onMounted(() => {
 <style scoped>
 .noticias {
     padding: 20px;
+    background-image: linear-gradient(to bottom, rgba(80, 194, 236), rgba(0, 41, 66) );
 }
 
 #h2-seccion {

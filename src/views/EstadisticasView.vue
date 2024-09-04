@@ -37,19 +37,23 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
+.estadisticas {
+    background-image: linear-gradient(to bottom, rgba(80, 194, 236), rgba(0, 41, 66) );
+}
+
 .jugadores-title {
     border-top: 5px outset rgb(80, 194, 236);
     border-bottom: 5px outset rgb(80, 194, 236);
     text-align: left;
     padding: 10px 0 10px 20px;
-    background-color: rgba(80, 194, 236, 0.25);
+    background-color: #cffcff;;
 }
 
 .jugadores-container {
     display: flex;
     justify-content: flex-start ;
     flex-wrap: wrap;
-    margin: 20px;
+    padding: 10px;
 }
 
 .jugador-card {

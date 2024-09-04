@@ -45,7 +45,6 @@ const agregarAlCarrito = (producto) => {
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 20px;
-  margin: 20px 0;
 }
 
 .catalogo img {

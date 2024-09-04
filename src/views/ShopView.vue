@@ -16,7 +16,7 @@
         <div>
           <CarritoItemsComponent/>
         </div>
-        <div>
+        <div class="catalogo-container">
           <CatalogoItemsComponent/>
         </div>
         <div>
@@ -80,6 +80,11 @@ onMounted(() => {
   font-size: 0.7rem;
   letter-spacing: -1px;
   font-weight: 500;
+}
+
+.catalogo-container {
+  padding: 20px 0;
+  background-image: linear-gradient(to bottom, rgba(80, 194, 236), rgba(0, 41, 66) );
 }
 
 </style>

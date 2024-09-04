@@ -1,13 +1,15 @@
 <template>
   <!-- El siguiente template puede ser modularizado en un componente Entry -->
   <template v-if="noticia">
-    <div class="noticia-entry-view">
-      <h3>{{ noticia.fecha + ' - ' + capitalize(noticia.categoria) }}</h3>
-      <h2>{{ noticia.titulo }}</h2>
-      <img :src="noticia.imagen" :alt="noticia.titulo">
-      <p class="intro">{{ noticia.subtitulo }}</p>
-      <p class="body">{{ noticia.cuerpo }}</p>
-      <RouterLink :to="'/noticias'" class="boton-volver">Volver</RouterLink>
+    <div class="noticia-entry-container">
+      <div class="noticia-entry-view">
+        <h3>{{ noticia.fecha + ' - ' + capitalize(noticia.categoria) }}</h3>
+        <h2>{{ noticia.titulo }}</h2>
+        <img :src="noticia.imagen" :alt="noticia.titulo">
+        <p class="intro">{{ noticia.subtitulo }}</p>
+        <p class="body">{{ noticia.cuerpo }}</p>
+        <RouterLink :to="'/noticias'" class="boton-volver">Volver</RouterLink>
+      </div>
     </div>
   </template>
 </template>
@@ -49,9 +51,15 @@ watch(() => route.params.id, () => {
   
   <style scoped>
   /* Estilos para la vista de entrada de la noticia */
+
+  .noticia-entry-container {
+    padding: 20px;
+    background-image: url('@/assets/background.jpg');
+  }
+
   .noticia-entry-view {
     max-width: 1000px;
-    margin: 20px auto;
+    margin: auto;
     padding: 20px;
     background-color: #f0f0f0;
     border-radius: 10px;

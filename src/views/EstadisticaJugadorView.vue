@@ -100,7 +100,7 @@ onBeforeMount(() => {
     border-bottom: 5px outset rgb(80, 194, 236);
     text-align: left;
     padding: 10px 0 10px 20px;
-    background-color: rgba(80, 194, 236, 0.25);
+    background-color: #cffcff;
 }
 
 .jugador-container {

@@ -38,9 +38,11 @@ const decrementarJugador = () => {
 };
 
 const trackStyle = computed(() => {
-  return {
+  let style = {
     transform: `translateX(-${index.value * (100 / jugadoresPorPagina.value)}%)`,
   };
+
+  return style;
 });
 
 function getJugadoresPorPagina() {
@@ -83,7 +85,7 @@ onUnmounted(() => {
   border-bottom: 5px outset rgb(80, 194, 236);
   text-align: left;
   padding: 10px 0 10px 20px;
-  background-color: rgba(80, 194, 236, 0.25);
+  background-color: #cffcff;
 }
 
 .carousel-track {

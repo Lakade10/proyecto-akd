@@ -2,8 +2,8 @@
   <div class="home">
     <div class="main-content">
       <!-- <CarrouselNoticiasComponent v-if="noticias" :noticias="noticias"/> -->
-      <carousel v-if="noticias" :items-to-show="1" wrapAround="true">
-        <slide v-for="noticia in noticias" :key="noticia.id">
+      <carousel v-if="noticias" :items-to-show="1" autoplay="10000" wrapAround="true">
+        <slide v-for="noticia in noticias" :key="noticia.id" style="border: 1px solid black">
           <h2 class="slide-h2">{{ capitalize(noticia.categoria) }}</h2>
           <img :src="noticia.imagen" :alt="noticia.subtitulo" @click="navigateToNoticia(noticia)" class="slide-img">
           <div class="slide-texto">
@@ -24,20 +24,20 @@
     </div>
   </div>
   <div class="carousel-jugadores">
-    <CarrouselJugadoresComponent :jugadores="jugadores" :titulo="'PLANTEL PROFESIONAL'">
+    <CarrouselJugadoresComponent :jugadores="jugadores" conFondo="true" :titulo="'PLANTEL PROFESIONAL'">
       <template #contenido="slotProps">
         <div v-for="jugador in slotProps.items" :key="jugador.id" class="jugador-card">
           <a class="jugador-image-container" :href="`#/estadisticas/jugador/${jugador.id}`">
             <img :src="jugador.imagen" :alt="jugador.nombre" class="jugador-image">
             <div class="hover-overlay"><b>Ver Datos</b></div>
           </a>
-          <h3 style="text-wrap: nowrap; margin-top: 10px;"><span style="color: gray">{{ '#' + jugador.dorsal + ' - '}}</span>{{ jugador.nombre }}</h3>
+          <h3 style="text-wrap: nowrap; margin-top: 10px; color: white; text-shadow: 0px 0px 5px black;"><span style="color: #cffcff;">{{ '#' + jugador.dorsal + ' - '}}</span>{{ jugador.nombre }}</h3>
         </div>
       </template>
     </CarrouselJugadoresComponent>
   </div>
   <div class="carousel-productos">
-    <CarrouselJugadoresComponent :jugadores="productos" :titulo="'PRODUCTOS DESTACADOS'" >
+    <CarrouselJugadoresComponent :jugadores="productos" conFondo="true" :titulo="'PRODUCTOS DESTACADOS'" >
 
       <template #contenido="slotProps">
         <div v-for="item in slotProps.items" :key="item.id" class="producto-card">
@@ -45,7 +45,7 @@
             <img :src="item.imagen" :alt="item.nombre" class="producto-image">
             <div class="hover-overlay"><b>Ver en Shop</b></div>
           </a>
-          <h3 style="text-wrap: nowrap; margin-top: 10px;">{{ item.nombre }}</h3>
+          <h3 style="text-wrap: nowrap; margin-top: 10px; color: white; text-shadow: 0px 0px 5px black;">{{ item.nombre }}</h3>
         </div>
       </template>
 
@@ -227,6 +227,7 @@ const jugadores = ref([
   display: flex;
   align-items: center;
   gap: 30px;
+  background-image: linear-gradient(to bottom, #50c2ec, #002942);
 }
 
 .sidebar {
@@ -242,10 +243,14 @@ const jugadores = ref([
 }
 
 .carousel-productos {
-  margin-top: 10px;
+  background-image: linear-gradient(to bottom, #50c2ec, #002942 );
 }
 
 /* Estilos contenido de CarouselJugadoresComponent */
+
+.carousel-jugadores {
+  background-image: linear-gradient(to top, #50c2ec, #002942 );
+}
 
 .jugador-card {
   display: flex;
@@ -311,14 +316,14 @@ const jugadores = ref([
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(80, 194, 236, 0.5);
+  background-color: #50c2ec80;
   font-size: 1.5rem;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
 
 .jugador-image-container:hover .jugador-image, .producto-image-container:hover .producto-image {
-  opacity: 0;
+  opacity: 0.4;
 }
 
 .jugador-image-container:hover .hover-overlay, .producto-image-container:hover .hover-overlay {
@@ -330,7 +335,6 @@ const jugadores = ref([
   width: 100%;
   height: 600px;
   cursor: pointer;
-  border-radius: 0 10px 10px 0;
 }
 
 .slide-h2 {
@@ -343,7 +347,7 @@ const jugadores = ref([
 .slide-texto {
   text-align: center;
   color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #000000b3;
   border-radius: 20px;
   padding: 10px;
   margin-bottom: 10px;
@@ -361,6 +365,12 @@ const jugadores = ref([
   }
 }
 
+@media (max-width: 1000px){
+  .slide-img {
+    max-height: 500px;
+  }
+}
+
 @media (max-width: 870px){
   .jugador-card, .producto-card {
     min-width: 25%;
@@ -371,11 +381,19 @@ const jugadores = ref([
   .jugador-card, .producto-card {
     min-width: 33.33%;
   }
+
+  .slide-img {
+    max-height: 400px;
+  }
 }
 
 @media (max-width: 520px){
   .jugador-card, .producto-card {
     min-width: 50%;
+  }
+
+  .slide-img {
+    max-height: 300px;
   }
 }
 

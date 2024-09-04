@@ -57,7 +57,7 @@ export default {
 
 <style scoped>
 .navbar {
-    background-color: rgba(80, 194, 236, 0.8);
+    background-color: #50c2ec;
     display: flex;
     justify-content: space-between;
     align-items: center;
